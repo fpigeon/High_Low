@@ -25,22 +25,25 @@ define ('MIN', 1);
 define ('MAX', 100);
 define ('LOW_OUTOUT', 'HIGHER');
 define ('HIGH_OUTPUT', 'LOWER');
-define ('CORRECT', 'GOOD GUESS');
+define ('CORRECT', 'GOOD GUESS!');
+
 //variables
+$guess_count = 1; //initiailize the number of guesses
 
-
-
-//random
-$random_number = rand(MIN, MAX);
-fwrite(STDOUT, ' random number is ' . $random_number . PHP_EOL);
-
+//create a random number
+//$random_number = rand(MIN, MAX);
+ $random_number = mt_rand(MIN, MAX);
+//removed for debugging
+//fwrite(STDOUT, ' random number is ' . $random_number . PHP_EOL);
 
 //user input
 fwrite(STDOUT, 'Guess a number between ' . MIN . ' and ' . MAX . ': ');
 $guess = (int) fgets (STDIN);
+
+//comment out for debugging
 //fwrite(STDOUT, 'Your guess was ' . $guess .PHP_EOL);
 
-//loop while not tehe 
+//loop until right guesss
 while ( $guess != $random_number) {
 	if ($guess < $random_number) {
 		fwrite(STDOUT, LOW_OUTOUT . PHP_EOL);	
@@ -52,9 +55,8 @@ while ( $guess != $random_number) {
 	//user input
 	fwrite(STDOUT, 'Guess a number between ' . MIN . ' and ' . MAX . ': ');
 	$guess = (int) fgets (STDIN);
-	fwrite(STDOUT, 'Your guess was ' . $guess .PHP_EOL);
+	$guess_count++; //increment guess count
 } //end of while
 
 //User has the correct answer!
-fwrite(STDOUT, CORRECT . PHP_EOL);
-
+fwrite(STDOUT, CORRECT . " It took you $guess_count tries.\n");
