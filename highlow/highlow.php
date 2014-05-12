@@ -20,43 +20,60 @@ Hints:
 - If you get stuck in game, ctrl-c will exit.
 */
 
-//constants
-define ('MIN', 1);
-define ('MAX', 100);
-define ('LOW_OUTOUT', 'HIGHER');
-define ('HIGH_OUTPUT', 'LOWER');
-define ('CORRECT', 'GOOD GUESS!');
+//killswitch
+//If there are 2 arguments passed, and both are numbers,
+// use the numbers to set the min and max on the random number generator.
 
-//variables
-$guess_count = 1; //initiailize the number of guesses
+if ($argc < 3) {
+	echo "Please enter two integers for min and max\n";
+	exit(0);
+}//too few arguments
+elseif (!is_numeric($argv[1]) ||  !is_numeric($argv[2])) {
+	echo "Please enter two numbers\n";
+	exit(0);
+}//not entering numbers
+else {
+	//constants
+	// define ('MIN', 1);
+	// define ('MAX', 100);
+	define ('MIN', $argv[1]); //first argument
+	define ('MAX', $argv[2]); //second argument
+	define ('LOW_OUTOUT', 'HIGHER');
+	define ('HIGH_OUTPUT', 'LOWER');
+	define ('CORRECT', 'GOOD GUESS!');
 
-//create a random number
-//$random_number = rand(MIN, MAX);
- $random_number = mt_rand(MIN, MAX);
-//removed for debugging
-//fwrite(STDOUT, ' random number is ' . $random_number . PHP_EOL);
+	//variables
+	$guess_count = 1; //initiailize the number of guesses
 
-//user input
-fwrite(STDOUT, 'Guess a number between ' . MIN . ' and ' . MAX . ': ');
-$guess = (int) fgets (STDIN);
+	//create a random number
+	//$random_number = rand(MIN, MAX);
+	 $random_number = mt_rand(MIN, MAX);
+	//removed for debugging
+	//fwrite(STDOUT, ' random number is ' . $random_number . PHP_EOL);
 
-//comment out for debugging
-//fwrite(STDOUT, 'Your guess was ' . $guess .PHP_EOL);
-
-//loop until right guesss
-while ( $guess != $random_number) {
-	if ($guess < $random_number) {
-		fwrite(STDOUT, LOW_OUTOUT . PHP_EOL);	
-	} //end of less
-	elseif( $guess > $random_number){
-		fwrite(STDOUT, HIGH_OUTPUT . PHP_EOL);	
-	}//end of high
-	
 	//user input
 	fwrite(STDOUT, 'Guess a number between ' . MIN . ' and ' . MAX . ': ');
 	$guess = (int) fgets (STDIN);
-	$guess_count++; //increment guess count
-} //end of while
 
-//User has the correct answer!
-fwrite(STDOUT, CORRECT . " It took you $guess_count tries.\n");
+	//comment out for debugging
+	//fwrite(STDOUT, 'Your guess was ' . $guess .PHP_EOL);
+
+	//loop until right guesss
+	while ( $guess != $random_number) {
+		if ($guess < $random_number) {
+			fwrite(STDOUT, LOW_OUTOUT . PHP_EOL);	
+		} //end of less
+		elseif( $guess > $random_number){
+			fwrite(STDOUT, HIGH_OUTPUT . PHP_EOL);	
+		}//end of high
+		
+		//user input
+		fwrite(STDOUT, 'Guess a number between ' . MIN . ' and ' . MAX . ': ');
+		$guess = (int) fgets (STDIN);
+		$guess_count++; //increment guess count
+	} //end of while
+
+	//User has the correct answer!
+	fwrite(STDOUT, CORRECT . " It took you $guess_count tries.\n");
+	exit(0);
+} //end of correct case
