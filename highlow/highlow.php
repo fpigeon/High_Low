@@ -26,12 +26,12 @@ Hints:
 
 if ($argc < 3) {
 	echo "Please enter two integers for min and max\n";
-	exit(0);
+	exit(1);
 }//too few arguments
-elseif (!is_numeric($argv[1]) ||  !is_numeric($argv[2])) {
+elseif (!is_numeric($argv[1]) || !is_numeric($argv[2]) ) {
 	echo "Please enter two numbers\n";
-	exit(0);
-}//not entering numbers
+	exit(2);
+}//not entering integers
 else {
 	//constants
 	// define ('MIN', 1);
